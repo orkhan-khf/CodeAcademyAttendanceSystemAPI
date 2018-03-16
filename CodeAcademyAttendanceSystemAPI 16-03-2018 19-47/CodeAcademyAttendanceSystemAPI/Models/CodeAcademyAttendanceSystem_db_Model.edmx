@@ -1,0 +1,839 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CodeAcademyAttendanceSystem_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Genders">
+          <Key>
+            <PropertyRef Name="gender_id" />
+          </Key>
+          <Property Name="gender_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="gender_name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Group_Schedule">
+          <Key>
+            <PropertyRef Name="group_schedule_id" />
+          </Key>
+          <Property Name="group_schedule_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="group_schedule_name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Group_Types">
+          <Key>
+            <PropertyRef Name="group_types_id" />
+          </Key>
+          <Property Name="group_types_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="group_types_name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="group_id" />
+          </Key>
+          <Property Name="group_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="group_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="group_start_date" Type="date" />
+          <Property Name="group_end_date" Type="date" />
+          <Property Name="group_lesson_times_id" Type="int" />
+          <Property Name="group_teacher_id" Type="int" />
+          <Property Name="group_group_type_id" Type="int" />
+          <Property Name="group_status" Type="bit" />
+        </EntityType>
+        <EntityType Name="Lesson_Times">
+          <Key>
+            <PropertyRef Name="lesson_times_id" />
+          </Key>
+          <Property Name="lesson_times_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="lesson_times_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="lesson_times_start_time" Type="time" Precision="7" />
+          <Property Name="lesson_times_end_time" Type="time" Precision="7" />
+          <Property Name="lesson_times_group_schedule_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Qr_Codes">
+          <Key>
+            <PropertyRef Name="qr_codes_id" />
+          </Key>
+          <Property Name="qr_codes_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="qr_codes_date" Type="date" />
+          <Property Name="qr_codes_value" Type="nvarchar" MaxLength="20" />
+          <Property Name="qr_codes_status" Type="bit" />
+          <Property Name="qr_codes_group_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Role_Types">
+          <Key>
+            <PropertyRef Name="role_types_id" />
+          </Key>
+          <Property Name="role_types_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role_types_name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="student_id" />
+          </Key>
+          <Property Name="student_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="student_email" Type="nvarchar" MaxLength="150" />
+          <Property Name="student_password" Type="nvarchar" MaxLength="35" />
+          <Property Name="student_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="student_surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="student_father_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="student_phone" Type="nvarchar" MaxLength="15" />
+          <Property Name="student_group_id" Type="int" />
+          <Property Name="student_gender_id" Type="int" />
+          <Property Name="student_device_id" Type="nvarchar" MaxLength="30" />
+          <Property Name="student_first_login" Type="bit" />
+          <Property Name="student_status" Type="bit" />
+        </EntityType>
+        <EntityType Name="Students_Attendance">
+          <Key>
+            <PropertyRef Name="students_attendance_id" />
+          </Key>
+          <Property Name="students_attendance_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="students_attendance_date" Type="date" />
+          <Property Name="students_attendance_status" Type="bit" />
+          <Property Name="students_attendance_sender_ip" Type="nvarchar" MaxLength="20" />
+          <Property Name="students_attendance_student_id" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="System_Settings">
+          <Key>
+            <PropertyRef Name="system_settings_id" />
+          </Key>
+          <Property Name="system_settings_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="system_settings_academy_ip" Type="nvarchar" MaxLength="15" />
+          <Property Name="system_settings_qr_code_available_minute" Type="int" />
+        </EntityType>
+        <EntityType Name="Teacher_Roles">
+          <Key>
+            <PropertyRef Name="teacher_roles_id" />
+          </Key>
+          <Property Name="teacher_roles_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="teacher_roles_teacher_id" Type="int" />
+          <Property Name="teacher_roles_role_types_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Teachers">
+          <Key>
+            <PropertyRef Name="teacher_id" />
+          </Key>
+          <Property Name="teacher_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="teacher_email" Type="nvarchar" MaxLength="150" />
+          <Property Name="teacher_password" Type="nvarchar" MaxLength="35" />
+          <Property Name="teacher_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="teacher_surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="teacher_phone" Type="nvarchar" MaxLength="15" />
+          <Property Name="teacher_photo" Type="nvarchar" MaxLength="20" />
+          <Property Name="teacher_gender_id" Type="int" />
+        </EntityType>
+        <Association Name="FK_Groups_to_Group_Types">
+          <End Role="Group_Types" Type="Self.Group_Types" Multiplicity="0..1" />
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group_Types">
+              <PropertyRef Name="group_types_id" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="group_group_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_to_Lesson_Times">
+          <End Role="Lesson_Times" Type="Self.Lesson_Times" Multiplicity="0..1" />
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lesson_Times">
+              <PropertyRef Name="lesson_times_id" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="group_lesson_times_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_to_Teachers">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="0..1" />
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="teacher_id" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="group_teacher_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_Times_To_Group_Schedule">
+          <End Role="Group_Schedule" Type="Self.Group_Schedule" Multiplicity="0..1" />
+          <End Role="Lesson_Times" Type="Self.Lesson_Times" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group_Schedule">
+              <PropertyRef Name="group_schedule_id" />
+            </Principal>
+            <Dependent Role="Lesson_Times">
+              <PropertyRef Name="lesson_times_group_schedule_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Qr_Codes_to_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
+          <End Role="Qr_Codes" Type="Self.Qr_Codes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="group_id" />
+            </Principal>
+            <Dependent Role="Qr_Codes">
+              <PropertyRef Name="qr_codes_group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Students_Attendance_to_Students">
+          <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
+          <End Role="Students_Attendance" Type="Self.Students_Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="Students_Attendance">
+              <PropertyRef Name="students_attendance_student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Students_to_Genders">
+          <End Role="Genders" Type="Self.Genders" Multiplicity="0..1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genders">
+              <PropertyRef Name="gender_id" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="student_gender_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Students_to_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="group_id" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="student_group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teacher_Roles_to_Role_Types">
+          <End Role="Role_Types" Type="Self.Role_Types" Multiplicity="0..1" />
+          <End Role="Teacher_Roles" Type="Self.Teacher_Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role_Types">
+              <PropertyRef Name="role_types_id" />
+            </Principal>
+            <Dependent Role="Teacher_Roles">
+              <PropertyRef Name="teacher_roles_role_types_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teacher_Roles_to_Teachers">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="0..1" />
+          <End Role="Teacher_Roles" Type="Self.Teacher_Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="teacher_id" />
+            </Principal>
+            <Dependent Role="Teacher_Roles">
+              <PropertyRef Name="teacher_roles_teacher_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teachers_to_Genders">
+          <End Role="Genders" Type="Self.Genders" Multiplicity="0..1" />
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genders">
+              <PropertyRef Name="gender_id" />
+            </Principal>
+            <Dependent Role="Teachers">
+              <PropertyRef Name="teacher_gender_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CodeAcademyAttendanceSystem_dbModelStoreContainer">
+          <EntitySet Name="Genders" EntityType="Self.Genders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Group_Schedule" EntityType="Self.Group_Schedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Group_Types" EntityType="Self.Group_Types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lesson_Times" EntityType="Self.Lesson_Times" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Qr_Codes" EntityType="Self.Qr_Codes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role_Types" EntityType="Self.Role_Types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students_Attendance" EntityType="Self.Students_Attendance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="System_Settings" EntityType="Self.System_Settings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teacher_Roles" EntityType="Self.Teacher_Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teachers" EntityType="Self.Teachers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Groups_to_Group_Types" Association="Self.FK_Groups_to_Group_Types">
+            <End Role="Group_Types" EntitySet="Group_Types" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_to_Lesson_Times" Association="Self.FK_Groups_to_Lesson_Times">
+            <End Role="Lesson_Times" EntitySet="Lesson_Times" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_to_Teachers" Association="Self.FK_Groups_to_Teachers">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_Times_To_Group_Schedule" Association="Self.FK_Lesson_Times_To_Group_Schedule">
+            <End Role="Group_Schedule" EntitySet="Group_Schedule" />
+            <End Role="Lesson_Times" EntitySet="Lesson_Times" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Qr_Codes_to_Groups" Association="Self.FK_Qr_Codes_to_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Qr_Codes" EntitySet="Qr_Codes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Students_Attendance_to_Students" Association="Self.FK_Students_Attendance_to_Students">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Students_Attendance" EntitySet="Students_Attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Students_to_Genders" Association="Self.FK_Students_to_Genders">
+            <End Role="Genders" EntitySet="Genders" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Students_to_Groups" Association="Self.FK_Students_to_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teacher_Roles_to_Role_Types" Association="Self.FK_Teacher_Roles_to_Role_Types">
+            <End Role="Role_Types" EntitySet="Role_Types" />
+            <End Role="Teacher_Roles" EntitySet="Teacher_Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teacher_Roles_to_Teachers" Association="Self.FK_Teacher_Roles_to_Teachers">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Teacher_Roles" EntitySet="Teacher_Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teachers_to_Genders" Association="Self.FK_Teachers_to_Genders">
+            <End Role="Genders" EntitySet="Genders" />
+            <End Role="Teachers" EntitySet="Teachers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CodeAcademyAttendanceSystem_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CodeAcademyAttendanceSystem_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Genders" EntityType="CodeAcademyAttendanceSystem_dbModel.Genders" />
+          <EntitySet Name="Group_Schedule" EntityType="CodeAcademyAttendanceSystem_dbModel.Group_Schedule" />
+          <EntitySet Name="Group_Types" EntityType="CodeAcademyAttendanceSystem_dbModel.Group_Types" />
+          <EntitySet Name="Groups" EntityType="CodeAcademyAttendanceSystem_dbModel.Groups" />
+          <EntitySet Name="Lesson_Times" EntityType="CodeAcademyAttendanceSystem_dbModel.Lesson_Times" />
+          <EntitySet Name="Qr_Codes" EntityType="CodeAcademyAttendanceSystem_dbModel.Qr_Codes" />
+          <EntitySet Name="Role_Types" EntityType="CodeAcademyAttendanceSystem_dbModel.Role_Types" />
+          <EntitySet Name="Students" EntityType="CodeAcademyAttendanceSystem_dbModel.Students" />
+          <EntitySet Name="Students_Attendance" EntityType="CodeAcademyAttendanceSystem_dbModel.Students_Attendance" />
+          <EntitySet Name="sysdiagrams" EntityType="CodeAcademyAttendanceSystem_dbModel.sysdiagrams" />
+          <EntitySet Name="System_Settings" EntityType="CodeAcademyAttendanceSystem_dbModel.System_Settings" />
+          <EntitySet Name="Teacher_Roles" EntityType="CodeAcademyAttendanceSystem_dbModel.Teacher_Roles" />
+          <EntitySet Name="Teachers" EntityType="CodeAcademyAttendanceSystem_dbModel.Teachers" />
+          <AssociationSet Name="FK_Students_to_Genders" Association="CodeAcademyAttendanceSystem_dbModel.FK_Students_to_Genders">
+            <End Role="Genders" EntitySet="Genders" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teachers_to_Genders" Association="CodeAcademyAttendanceSystem_dbModel.FK_Teachers_to_Genders">
+            <End Role="Genders" EntitySet="Genders" />
+            <End Role="Teachers" EntitySet="Teachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lesson_Times_To_Group_Schedule" Association="CodeAcademyAttendanceSystem_dbModel.FK_Lesson_Times_To_Group_Schedule">
+            <End Role="Group_Schedule" EntitySet="Group_Schedule" />
+            <End Role="Lesson_Times" EntitySet="Lesson_Times" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_to_Group_Types" Association="CodeAcademyAttendanceSystem_dbModel.FK_Groups_to_Group_Types">
+            <End Role="Group_Types" EntitySet="Group_Types" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_to_Lesson_Times" Association="CodeAcademyAttendanceSystem_dbModel.FK_Groups_to_Lesson_Times">
+            <End Role="Lesson_Times" EntitySet="Lesson_Times" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_to_Teachers" Association="CodeAcademyAttendanceSystem_dbModel.FK_Groups_to_Teachers">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Qr_Codes_to_Groups" Association="CodeAcademyAttendanceSystem_dbModel.FK_Qr_Codes_to_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Qr_Codes" EntitySet="Qr_Codes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Students_to_Groups" Association="CodeAcademyAttendanceSystem_dbModel.FK_Students_to_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teacher_Roles_to_Role_Types" Association="CodeAcademyAttendanceSystem_dbModel.FK_Teacher_Roles_to_Role_Types">
+            <End Role="Role_Types" EntitySet="Role_Types" />
+            <End Role="Teacher_Roles" EntitySet="Teacher_Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Students_Attendance_to_Students" Association="CodeAcademyAttendanceSystem_dbModel.FK_Students_Attendance_to_Students">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Students_Attendance" EntitySet="Students_Attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teacher_Roles_to_Teachers" Association="CodeAcademyAttendanceSystem_dbModel.FK_Teacher_Roles_to_Teachers">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Teacher_Roles" EntitySet="Teacher_Roles" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Genders">
+          <Key>
+            <PropertyRef Name="gender_id" />
+          </Key>
+          <Property Name="gender_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="gender_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Students" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Students_to_Genders" FromRole="Genders" ToRole="Students" />
+          <NavigationProperty Name="Teachers" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Teachers_to_Genders" FromRole="Genders" ToRole="Teachers" />
+        </EntityType>
+        <EntityType Name="Group_Schedule">
+          <Key>
+            <PropertyRef Name="group_schedule_id" />
+          </Key>
+          <Property Name="group_schedule_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="group_schedule_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Lesson_Times" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Lesson_Times_To_Group_Schedule" FromRole="Group_Schedule" ToRole="Lesson_Times" />
+        </EntityType>
+        <EntityType Name="Group_Types">
+          <Key>
+            <PropertyRef Name="group_types_id" />
+          </Key>
+          <Property Name="group_types_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="group_types_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Groups" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Groups_to_Group_Types" FromRole="Group_Types" ToRole="Groups" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="group_id" />
+          </Key>
+          <Property Name="group_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="group_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="group_start_date" Type="DateTime" Precision="0" />
+          <Property Name="group_end_date" Type="DateTime" Precision="0" />
+          <Property Name="group_lesson_times_id" Type="Int32" />
+          <Property Name="group_teacher_id" Type="Int32" />
+          <Property Name="group_group_type_id" Type="Int32" />
+          <Property Name="group_status" Type="Boolean" />
+          <NavigationProperty Name="Group_Types" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Groups_to_Group_Types" FromRole="Groups" ToRole="Group_Types" />
+          <NavigationProperty Name="Lesson_Times" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Groups_to_Lesson_Times" FromRole="Groups" ToRole="Lesson_Times" />
+          <NavigationProperty Name="Teachers" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Groups_to_Teachers" FromRole="Groups" ToRole="Teachers" />
+          <NavigationProperty Name="Qr_Codes" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Qr_Codes_to_Groups" FromRole="Groups" ToRole="Qr_Codes" />
+          <NavigationProperty Name="Students" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Students_to_Groups" FromRole="Groups" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="Lesson_Times">
+          <Key>
+            <PropertyRef Name="lesson_times_id" />
+          </Key>
+          <Property Name="lesson_times_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lesson_times_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lesson_times_start_time" Type="Time" Precision="7" />
+          <Property Name="lesson_times_end_time" Type="Time" Precision="7" />
+          <Property Name="lesson_times_group_schedule_id" Type="Int32" />
+          <NavigationProperty Name="Group_Schedule" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Lesson_Times_To_Group_Schedule" FromRole="Lesson_Times" ToRole="Group_Schedule" />
+          <NavigationProperty Name="Groups" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Groups_to_Lesson_Times" FromRole="Lesson_Times" ToRole="Groups" />
+        </EntityType>
+        <EntityType Name="Qr_Codes">
+          <Key>
+            <PropertyRef Name="qr_codes_id" />
+          </Key>
+          <Property Name="qr_codes_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="qr_codes_date" Type="DateTime" Precision="0" />
+          <Property Name="qr_codes_value" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="qr_codes_status" Type="Boolean" />
+          <Property Name="qr_codes_group_id" Type="Int32" />
+          <NavigationProperty Name="Groups" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Qr_Codes_to_Groups" FromRole="Qr_Codes" ToRole="Groups" />
+        </EntityType>
+        <EntityType Name="Role_Types">
+          <Key>
+            <PropertyRef Name="role_types_id" />
+          </Key>
+          <Property Name="role_types_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role_types_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Teacher_Roles" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Teacher_Roles_to_Role_Types" FromRole="Role_Types" ToRole="Teacher_Roles" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="student_id" />
+          </Key>
+          <Property Name="student_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="student_email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="student_password" Type="String" MaxLength="35" FixedLength="false" Unicode="true" />
+          <Property Name="student_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="student_surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="student_father_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="student_phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="student_group_id" Type="Int32" />
+          <Property Name="student_gender_id" Type="Int32" />
+          <Property Name="student_device_id" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="student_first_login" Type="Boolean" />
+          <Property Name="student_status" Type="Boolean" />
+          <NavigationProperty Name="Genders" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Students_to_Genders" FromRole="Students" ToRole="Genders" />
+          <NavigationProperty Name="Groups" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Students_to_Groups" FromRole="Students" ToRole="Groups" />
+          <NavigationProperty Name="Students_Attendance" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Students_Attendance_to_Students" FromRole="Students" ToRole="Students_Attendance" />
+        </EntityType>
+        <EntityType Name="Students_Attendance">
+          <Key>
+            <PropertyRef Name="students_attendance_id" />
+          </Key>
+          <Property Name="students_attendance_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="students_attendance_date" Type="DateTime" Precision="0" />
+          <Property Name="students_attendance_status" Type="Boolean" />
+          <Property Name="students_attendance_sender_ip" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="students_attendance_student_id" Type="Int32" />
+          <NavigationProperty Name="Students" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Students_Attendance_to_Students" FromRole="Students_Attendance" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="System_Settings">
+          <Key>
+            <PropertyRef Name="system_settings_id" />
+          </Key>
+          <Property Name="system_settings_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="system_settings_academy_ip" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="system_settings_qr_code_available_minute" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Teacher_Roles">
+          <Key>
+            <PropertyRef Name="teacher_roles_id" />
+          </Key>
+          <Property Name="teacher_roles_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="teacher_roles_teacher_id" Type="Int32" />
+          <Property Name="teacher_roles_role_types_id" Type="Int32" />
+          <NavigationProperty Name="Role_Types" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Teacher_Roles_to_Role_Types" FromRole="Teacher_Roles" ToRole="Role_Types" />
+          <NavigationProperty Name="Teachers" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Teacher_Roles_to_Teachers" FromRole="Teacher_Roles" ToRole="Teachers" />
+        </EntityType>
+        <EntityType Name="Teachers">
+          <Key>
+            <PropertyRef Name="teacher_id" />
+          </Key>
+          <Property Name="teacher_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="teacher_email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="teacher_password" Type="String" MaxLength="35" FixedLength="false" Unicode="true" />
+          <Property Name="teacher_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="teacher_surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="teacher_phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="teacher_photo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="teacher_gender_id" Type="Int32" />
+          <NavigationProperty Name="Genders" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Teachers_to_Genders" FromRole="Teachers" ToRole="Genders" />
+          <NavigationProperty Name="Groups" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Groups_to_Teachers" FromRole="Teachers" ToRole="Groups" />
+          <NavigationProperty Name="Teacher_Roles" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Teacher_Roles_to_Teachers" FromRole="Teachers" ToRole="Teacher_Roles" />
+        </EntityType>
+        <Association Name="FK_Students_to_Genders">
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Genders" Role="Genders" Multiplicity="0..1" />
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Students" Role="Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genders">
+              <PropertyRef Name="gender_id" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="student_gender_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teachers_to_Genders">
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Genders" Role="Genders" Multiplicity="0..1" />
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Teachers" Role="Teachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genders">
+              <PropertyRef Name="gender_id" />
+            </Principal>
+            <Dependent Role="Teachers">
+              <PropertyRef Name="teacher_gender_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lesson_Times_To_Group_Schedule">
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Group_Schedule" Role="Group_Schedule" Multiplicity="0..1" />
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Lesson_Times" Role="Lesson_Times" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group_Schedule">
+              <PropertyRef Name="group_schedule_id" />
+            </Principal>
+            <Dependent Role="Lesson_Times">
+              <PropertyRef Name="lesson_times_group_schedule_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_to_Group_Types">
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Group_Types" Role="Group_Types" Multiplicity="0..1" />
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Groups" Role="Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group_Types">
+              <PropertyRef Name="group_types_id" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="group_group_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_to_Lesson_Times">
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Lesson_Times" Role="Lesson_Times" Multiplicity="0..1" />
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Groups" Role="Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lesson_Times">
+              <PropertyRef Name="lesson_times_id" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="group_lesson_times_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_to_Teachers">
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Teachers" Role="Teachers" Multiplicity="0..1" />
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Groups" Role="Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="teacher_id" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="group_teacher_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Qr_Codes_to_Groups">
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Groups" Role="Groups" Multiplicity="0..1" />
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Qr_Codes" Role="Qr_Codes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="group_id" />
+            </Principal>
+            <Dependent Role="Qr_Codes">
+              <PropertyRef Name="qr_codes_group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Students_to_Groups">
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Groups" Role="Groups" Multiplicity="0..1" />
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Students" Role="Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="group_id" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="student_group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teacher_Roles_to_Role_Types">
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Role_Types" Role="Role_Types" Multiplicity="0..1" />
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Teacher_Roles" Role="Teacher_Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role_Types">
+              <PropertyRef Name="role_types_id" />
+            </Principal>
+            <Dependent Role="Teacher_Roles">
+              <PropertyRef Name="teacher_roles_role_types_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Students_Attendance_to_Students">
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Students" Role="Students" Multiplicity="0..1" />
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Students_Attendance" Role="Students_Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="Students_Attendance">
+              <PropertyRef Name="students_attendance_student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teacher_Roles_to_Teachers">
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Teachers" Role="Teachers" Multiplicity="0..1" />
+          <End Type="CodeAcademyAttendanceSystem_dbModel.Teacher_Roles" Role="Teacher_Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="teacher_id" />
+            </Principal>
+            <Dependent Role="Teacher_Roles">
+              <PropertyRef Name="teacher_roles_teacher_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CodeAcademyAttendanceSystem_dbModelStoreContainer" CdmEntityContainer="CodeAcademyAttendanceSystem_dbEntities">
+          <EntitySetMapping Name="Genders">
+            <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Genders">
+              <MappingFragment StoreEntitySet="Genders">
+                <ScalarProperty Name="gender_name" ColumnName="gender_name" />
+                <ScalarProperty Name="gender_id" ColumnName="gender_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Group_Schedule">
+            <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Group_Schedule">
+              <MappingFragment StoreEntitySet="Group_Schedule">
+                <ScalarProperty Name="group_schedule_name" ColumnName="group_schedule_name" />
+                <ScalarProperty Name="group_schedule_id" ColumnName="group_schedule_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Group_Types">
+            <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Group_Types">
+              <MappingFragment StoreEntitySet="Group_Types">
+                <ScalarProperty Name="group_types_name" ColumnName="group_types_name" />
+                <ScalarProperty Name="group_types_id" ColumnName="group_types_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Groups">
+              <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="group_status" ColumnName="group_status" />
+                <ScalarProperty Name="group_group_type_id" ColumnName="group_group_type_id" />
+                <ScalarProperty Name="group_teacher_id" ColumnName="group_teacher_id" />
+                <ScalarProperty Name="group_lesson_times_id" ColumnName="group_lesson_times_id" />
+                <ScalarProperty Name="group_end_date" ColumnName="group_end_date" />
+                <ScalarProperty Name="group_start_date" ColumnName="group_start_date" />
+                <ScalarProperty Name="group_name" ColumnName="group_name" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lesson_Times">
+            <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Lesson_Times">
+              <MappingFragment StoreEntitySet="Lesson_Times">
+                <ScalarProperty Name="lesson_times_group_schedule_id" ColumnName="lesson_times_group_schedule_id" />
+                <ScalarProperty Name="lesson_times_end_time" ColumnName="lesson_times_end_time" />
+                <ScalarProperty Name="lesson_times_start_time" ColumnName="lesson_times_start_time" />
+                <ScalarProperty Name="lesson_times_name" ColumnName="lesson_times_name" />
+                <ScalarProperty Name="lesson_times_id" ColumnName="lesson_times_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Qr_Codes">
+            <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Qr_Codes">
+              <MappingFragment StoreEntitySet="Qr_Codes">
+                <ScalarProperty Name="qr_codes_group_id" ColumnName="qr_codes_group_id" />
+                <ScalarProperty Name="qr_codes_status" ColumnName="qr_codes_status" />
+                <ScalarProperty Name="qr_codes_value" ColumnName="qr_codes_value" />
+                <ScalarProperty Name="qr_codes_date" ColumnName="qr_codes_date" />
+                <ScalarProperty Name="qr_codes_id" ColumnName="qr_codes_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role_Types">
+            <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Role_Types">
+              <MappingFragment StoreEntitySet="Role_Types">
+                <ScalarProperty Name="role_types_name" ColumnName="role_types_name" />
+                <ScalarProperty Name="role_types_id" ColumnName="role_types_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Students">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="student_status" ColumnName="student_status" />
+                <ScalarProperty Name="student_first_login" ColumnName="student_first_login" />
+                <ScalarProperty Name="student_device_id" ColumnName="student_device_id" />
+                <ScalarProperty Name="student_gender_id" ColumnName="student_gender_id" />
+                <ScalarProperty Name="student_group_id" ColumnName="student_group_id" />
+                <ScalarProperty Name="student_phone" ColumnName="student_phone" />
+                <ScalarProperty Name="student_father_name" ColumnName="student_father_name" />
+                <ScalarProperty Name="student_surname" ColumnName="student_surname" />
+                <ScalarProperty Name="student_name" ColumnName="student_name" />
+                <ScalarProperty Name="student_password" ColumnName="student_password" />
+                <ScalarProperty Name="student_email" ColumnName="student_email" />
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students_Attendance">
+            <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Students_Attendance">
+              <MappingFragment StoreEntitySet="Students_Attendance">
+                <ScalarProperty Name="students_attendance_student_id" ColumnName="students_attendance_student_id" />
+                <ScalarProperty Name="students_attendance_sender_ip" ColumnName="students_attendance_sender_ip" />
+                <ScalarProperty Name="students_attendance_status" ColumnName="students_attendance_status" />
+                <ScalarProperty Name="students_attendance_date" ColumnName="students_attendance_date" />
+                <ScalarProperty Name="students_attendance_id" ColumnName="students_attendance_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="System_Settings">
+            <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.System_Settings">
+              <MappingFragment StoreEntitySet="System_Settings">
+                <ScalarProperty Name="system_settings_qr_code_available_minute" ColumnName="system_settings_qr_code_available_minute" />
+                <ScalarProperty Name="system_settings_academy_ip" ColumnName="system_settings_academy_ip" />
+                <ScalarProperty Name="system_settings_id" ColumnName="system_settings_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teacher_Roles">
+            <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Teacher_Roles">
+              <MappingFragment StoreEntitySet="Teacher_Roles">
+                <ScalarProperty Name="teacher_roles_role_types_id" ColumnName="teacher_roles_role_types_id" />
+                <ScalarProperty Name="teacher_roles_teacher_id" ColumnName="teacher_roles_teacher_id" />
+                <ScalarProperty Name="teacher_roles_id" ColumnName="teacher_roles_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teachers">
+            <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Teachers">
+              <MappingFragment StoreEntitySet="Teachers">
+                <ScalarProperty Name="teacher_gender_id" ColumnName="teacher_gender_id" />
+                <ScalarProperty Name="teacher_photo" ColumnName="teacher_photo" />
+                <ScalarProperty Name="teacher_phone" ColumnName="teacher_phone" />
+                <ScalarProperty Name="teacher_surname" ColumnName="teacher_surname" />
+                <ScalarProperty Name="teacher_name" ColumnName="teacher_name" />
+                <ScalarProperty Name="teacher_password" ColumnName="teacher_password" />
+                <ScalarProperty Name="teacher_email" ColumnName="teacher_email" />
+                <ScalarProperty Name="teacher_id" ColumnName="teacher_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
