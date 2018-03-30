@@ -31,7 +31,7 @@
             <PropertyRef Name="group_id" />
           </Key>
           <Property Name="group_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="group_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="group_name" Type="nvarchar" MaxLength="25" />
           <Property Name="group_start_date" Type="date" />
           <Property Name="group_end_date" Type="date" />
           <Property Name="group_lesson_times_id" Type="int" />
@@ -72,7 +72,7 @@
           </Key>
           <Property Name="student_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="student_email" Type="nvarchar" MaxLength="150" />
-          <Property Name="student_password" Type="nvarchar" MaxLength="35" />
+          <Property Name="student_password" Type="nvarchar" MaxLength="75" />
           <Property Name="student_name" Type="nvarchar" MaxLength="50" />
           <Property Name="student_surname" Type="nvarchar" MaxLength="50" />
           <Property Name="student_father_name" Type="nvarchar" MaxLength="50" />
@@ -107,13 +107,14 @@
           </Key>
           <Property Name="teacher_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="teacher_email" Type="nvarchar" MaxLength="150" />
-          <Property Name="teacher_password" Type="nvarchar" MaxLength="35" />
+          <Property Name="teacher_password" Type="nvarchar" MaxLength="75" />
           <Property Name="teacher_name" Type="nvarchar" MaxLength="50" />
           <Property Name="teacher_surname" Type="nvarchar" MaxLength="50" />
           <Property Name="teacher_phone" Type="nvarchar" MaxLength="15" />
           <Property Name="teacher_photo" Type="nvarchar" MaxLength="20" />
           <Property Name="teacher_gender_id" Type="int" />
           <Property Name="teacher_role_types_id" Type="int" />
+          <Property Name="teacher_first_login" Type="bit" />
         </EntityType>
         <Association Name="FK_Groups_to_Group_Types">
           <End Role="Group_Types" Type="Self.Group_Types" Multiplicity="0..1" />
@@ -375,7 +376,7 @@
             <PropertyRef Name="group_id" />
           </Key>
           <Property Name="group_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="group_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="group_name" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="group_start_date" Type="DateTime" Precision="0" />
           <Property Name="group_end_date" Type="DateTime" Precision="0" />
           <Property Name="group_lesson_times_id" Type="Int32" />
@@ -425,7 +426,7 @@
           </Key>
           <Property Name="student_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="student_email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="student_password" Type="String" MaxLength="35" FixedLength="false" Unicode="true" />
+          <Property Name="student_password" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
           <Property Name="student_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="student_surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="student_father_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -464,13 +465,14 @@
           </Key>
           <Property Name="teacher_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="teacher_email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="teacher_password" Type="String" MaxLength="35" FixedLength="false" Unicode="true" />
+          <Property Name="teacher_password" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
           <Property Name="teacher_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="teacher_surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="teacher_phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="teacher_photo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="teacher_gender_id" Type="Int32" />
           <Property Name="teacher_role_types_id" Type="Int32" />
+          <Property Name="teacher_first_login" Type="Boolean" />
           <NavigationProperty Name="Genders" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Teachers_to_Genders" FromRole="Teachers" ToRole="Genders" />
           <NavigationProperty Name="Groups" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Groups_to_Teachers" FromRole="Teachers" ToRole="Groups" />
           <NavigationProperty Name="Role_Types" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Teachers_to_Role_Types" FromRole="Teachers" ToRole="Role_Types" />
@@ -710,6 +712,7 @@
           <EntitySetMapping Name="Teachers">
             <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Teachers">
               <MappingFragment StoreEntitySet="Teachers">
+                <ScalarProperty Name="teacher_first_login" ColumnName="teacher_first_login" />
                 <ScalarProperty Name="teacher_role_types_id" ColumnName="teacher_role_types_id" />
                 <ScalarProperty Name="teacher_gender_id" ColumnName="teacher_gender_id" />
                 <ScalarProperty Name="teacher_photo" ColumnName="teacher_photo" />

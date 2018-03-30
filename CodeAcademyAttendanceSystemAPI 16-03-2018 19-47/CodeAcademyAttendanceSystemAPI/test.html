@@ -8,7 +8,7 @@
 <body>
     <script>
         $.ajax({
-            url: "api/student/ApproveAttendance?student_id=4&qr_code=658113841",
+            url: "api/student/CheckStudentLogin?student_email=nurlan@code.edu.az&student_password=CA123456",
             type: 'GET',
             success: function (gelen){
                 $("body").append(gelen)

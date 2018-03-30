@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using CodeAcademyAttendanceSystemAPI.Models;
+using CodeAcademyAttendanceSystem.Models.PasswordSecurity;
 
 namespace CodeAcademyAttendanceSystemAPI.Controllers
 {
@@ -22,19 +23,23 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
             {
                 return "Student is away from Academy!";
             }
-            try
+            
+            Students check_student_email = db.Students.Where(s => s.student_email == student_email).FirstOrDefault();
+
+            if (check_student_email == null)
             {
-                int student_id = db.Students.Where(s => s.student_email == student_email && s.student_password == student_password).First().student_id;
-                if (student_id > 0)
-                {
-                    return student_id.ToString();
-                }
+                return "Email düzgün daxil edilməyib!";
             }
-            catch
+
+            if (!PasswordStorage.VerifyPassword(student_password, check_student_email.student_password))
             {
-                
+                return "Şifrə düzgün daxil edilməyib!";
             }
-            return "Error";
+            if (check_student_email.student_id > 0)
+            {
+                return check_student_email.student_name + " " + check_student_email.student_surname;
+            }
+            return "Checking Error";
         }
 
         [HttpGet]

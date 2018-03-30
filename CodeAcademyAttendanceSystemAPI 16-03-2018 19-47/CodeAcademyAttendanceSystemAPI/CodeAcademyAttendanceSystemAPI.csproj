@@ -139,6 +139,7 @@
     <Compile Include="Models\Lesson_Times.cs">
       <DependentUpon>CodeAcademyAttendanceSystem_db_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PasswordSecurity.cs" />
     <Compile Include="Models\Qr_Codes.cs">
       <DependentUpon>CodeAcademyAttendanceSystem_db_Model.tt</DependentUpon>
     </Compile>
@@ -168,6 +169,7 @@
       <DependentUpon>CodeAcademyAttendanceSystem_db_Model.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\CodeAcademyAttendanceSystemAPI - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\CodeAcademyAttendanceSystemAPI - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

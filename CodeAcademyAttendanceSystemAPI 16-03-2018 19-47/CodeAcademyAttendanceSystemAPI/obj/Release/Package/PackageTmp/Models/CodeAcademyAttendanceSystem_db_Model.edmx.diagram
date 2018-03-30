@@ -4,31 +4,28 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0a84f39e6270402c84726205594f5b38" Name="Diagram1">
-        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.Genders" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.Group_Schedule" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.Group_Types" Width="1.5" PointX="3" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.Groups" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.Lesson_Times" Width="1.5" PointX="3" PointY="17" IsExpanded="true" />
-        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.Qr_Codes" Width="1.5" PointX="7.5" PointY="13.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.Role_Types" Width="1.5" PointX="6" PointY="16.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.Students" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.Students_Attendance" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.System_Settings" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.Teacher_Roles" Width="1.5" PointX="8.25" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.Teachers" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
-        <AssociationConnector Association="CodeAcademyAttendanceSystem_dbModel.FK_Students_to_Genders" ManuallyRouted="false" />
-        <AssociationConnector Association="CodeAcademyAttendanceSystem_dbModel.FK_Teachers_to_Genders" ManuallyRouted="false" />
-        <AssociationConnector Association="CodeAcademyAttendanceSystem_dbModel.FK_Groups_to_Groups_Schedule" ManuallyRouted="false" />
-        <AssociationConnector Association="CodeAcademyAttendanceSystem_dbModel.FK_Groups_to_Group_Types" ManuallyRouted="false" />
-        <AssociationConnector Association="CodeAcademyAttendanceSystem_dbModel.FK_Groups_to_Lesson_Times" ManuallyRouted="false" />
-        <AssociationConnector Association="CodeAcademyAttendanceSystem_dbModel.FK_Groups_to_Teachers" ManuallyRouted="false" />
-        <AssociationConnector Association="CodeAcademyAttendanceSystem_dbModel.FK_Qr_Codes_to_Groups" ManuallyRouted="false" />
-        <AssociationConnector Association="CodeAcademyAttendanceSystem_dbModel.FK_Students_to_Groups" ManuallyRouted="false" />
-        <AssociationConnector Association="CodeAcademyAttendanceSystem_dbModel.FK_Teacher_Roles_to_Role_Types" ManuallyRouted="false" />
-        <AssociationConnector Association="CodeAcademyAttendanceSystem_dbModel.FK_Students_Attendance_to_Students" ManuallyRouted="false" />
-        <AssociationConnector Association="CodeAcademyAttendanceSystem_dbModel.FK_Teacher_Roles_to_Teachers" ManuallyRouted="false" />
+      <Diagram DiagramId="0a84f39e6270402c84726205594f5b38" Name="Diagram1" ZoomLevel="62">
+        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.Genders" Width="1.5" PointX="0.75" PointY="4.625" />
+        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.Group_Schedule" Width="1.5" PointX="3.75" PointY="12.75" />
+        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.Group_Types" Width="1.5" PointX="6" PointY="1" />
+        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.Groups" Width="1.5" PointX="8.25" PointY="3.75" />
+        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.Lesson_Times" Width="1.5" PointX="6" PointY="12.375" />
+        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.Qr_Codes" Width="1.5" PointX="10.5" PointY="4.5" />
+        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.Role_Types" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.Students" Width="1.5" PointX="3" PointY="3.625" />
+        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.Students_Attendance" Width="1.5" PointX="5.25" PointY="8.5" />
+        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.System_Settings" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="CodeAcademyAttendanceSystem_dbModel.Teachers" Width="1.5" PointX="6" PointY="3.75" />
+        <AssociationConnector Association="CodeAcademyAttendanceSystem_dbModel.FK_Students_to_Genders" />
+        <AssociationConnector Association="CodeAcademyAttendanceSystem_dbModel.FK_Teachers_to_Genders" />
+        <AssociationConnector Association="CodeAcademyAttendanceSystem_dbModel.FK_Lesson_Times_To_Group_Schedule" />
+        <AssociationConnector Association="CodeAcademyAttendanceSystem_dbModel.FK_Groups_to_Group_Types" />
+        <AssociationConnector Association="CodeAcademyAttendanceSystem_dbModel.FK_Groups_to_Lesson_Times" />
+        <AssociationConnector Association="CodeAcademyAttendanceSystem_dbModel.FK_Groups_to_Teachers" />
+        <AssociationConnector Association="CodeAcademyAttendanceSystem_dbModel.FK_Qr_Codes_to_Groups" />
+        <AssociationConnector Association="CodeAcademyAttendanceSystem_dbModel.FK_Students_to_Groups" />
+        <AssociationConnector Association="CodeAcademyAttendanceSystem_dbModel.FK_Teachers_to_Role_Types" />
+        <AssociationConnector Association="CodeAcademyAttendanceSystem_dbModel.FK_Students_Attendance_to_Students" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -29,6 +29,7 @@ namespace CodeAcademyAttendanceSystemAPI.Models
         public string teacher_photo { get; set; }
         public Nullable<int> teacher_gender_id { get; set; }
         public Nullable<int> teacher_role_types_id { get; set; }
+        public Nullable<bool> teacher_first_login { get; set; }
     
         public virtual Genders Genders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
