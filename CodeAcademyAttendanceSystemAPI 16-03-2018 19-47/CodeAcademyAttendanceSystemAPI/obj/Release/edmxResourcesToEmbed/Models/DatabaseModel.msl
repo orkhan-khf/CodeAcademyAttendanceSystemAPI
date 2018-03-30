@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FarajovsQR_dbModelStoreContainer" CdmEntityContainer="FarajovsQR_dbEntities">
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="FarajovsQR_dbModel.Students">
+        <MappingFragment StoreEntitySet="Students">
+          <ScalarProperty Name="student_id" ColumnName="student_id" />
+          <ScalarProperty Name="student_email" ColumnName="student_email" />
+          <ScalarProperty Name="student_password" ColumnName="student_password" />
+          <ScalarProperty Name="student_name" ColumnName="student_name" />
+          <ScalarProperty Name="student_surname" ColumnName="student_surname" />
+          <ScalarProperty Name="student_group_id" ColumnName="student_group_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students_Attendance">
+      <EntityTypeMapping TypeName="FarajovsQR_dbModel.Students_Attendance">
+        <MappingFragment StoreEntitySet="Students_Attendance">
+          <ScalarProperty Name="students_attendance_id" ColumnName="students_attendance_id" />
+          <ScalarProperty Name="students_attendance_date" ColumnName="students_attendance_date" />
+          <ScalarProperty Name="students_attendance_status" ColumnName="students_attendance_status" />
+          <ScalarProperty Name="students_attendance_sender_ip" ColumnName="students_attendance_sender_ip" />
+          <ScalarProperty Name="students_attendance_student_id" ColumnName="students_attendance_student_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Groups">
+      <EntityTypeMapping TypeName="FarajovsQR_dbModel.Groups">
+        <MappingFragment StoreEntitySet="Groups">
+          <ScalarProperty Name="group_name" ColumnName="group_name" />
+          <ScalarProperty Name="group_id" ColumnName="group_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Qr_Codes">
+      <EntityTypeMapping TypeName="FarajovsQR_dbModel.Qr_Codes">
+        <MappingFragment StoreEntitySet="Qr_Codes">
+          <ScalarProperty Name="qr_codes_group_id" ColumnName="qr_codes_group_id" />
+          <ScalarProperty Name="qr_codes_status" ColumnName="qr_codes_status" />
+          <ScalarProperty Name="qr_codes_value" ColumnName="qr_codes_value" />
+          <ScalarProperty Name="qr_codes_date" ColumnName="qr_codes_date" />
+          <ScalarProperty Name="qr_codes_id" ColumnName="qr_codes_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

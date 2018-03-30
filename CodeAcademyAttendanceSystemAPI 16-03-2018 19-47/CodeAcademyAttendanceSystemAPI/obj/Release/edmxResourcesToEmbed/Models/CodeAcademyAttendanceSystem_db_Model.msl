@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CodeAcademyAttendanceSystem_dbModelStoreContainer" CdmEntityContainer="CodeAcademyAttendanceSystem_dbEntities">
+    <EntitySetMapping Name="Genders">
+      <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Genders">
+        <MappingFragment StoreEntitySet="Genders">
+          <ScalarProperty Name="gender_id" ColumnName="gender_id" />
+          <ScalarProperty Name="gender_name" ColumnName="gender_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Group_Schedule">
+      <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Group_Schedule">
+        <MappingFragment StoreEntitySet="Group_Schedule">
+          <ScalarProperty Name="group_schedule_id" ColumnName="group_schedule_id" />
+          <ScalarProperty Name="group_schedule_name" ColumnName="group_schedule_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Group_Types">
+      <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Group_Types">
+        <MappingFragment StoreEntitySet="Group_Types">
+          <ScalarProperty Name="group_types_id" ColumnName="group_types_id" />
+          <ScalarProperty Name="group_types_name" ColumnName="group_types_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Groups">
+      <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Groups">
+        <MappingFragment StoreEntitySet="Groups">
+          <ScalarProperty Name="group_id" ColumnName="group_id" />
+          <ScalarProperty Name="group_name" ColumnName="group_name" />
+          <ScalarProperty Name="group_start_date" ColumnName="group_start_date" />
+          <ScalarProperty Name="group_end_date" ColumnName="group_end_date" />
+          <ScalarProperty Name="group_group_schedule_id" ColumnName="group_group_schedule_id" />
+          <ScalarProperty Name="group_lesson_times_id" ColumnName="group_lesson_times_id" />
+          <ScalarProperty Name="group_teacher_id" ColumnName="group_teacher_id" />
+          <ScalarProperty Name="group_group_type_id" ColumnName="group_group_type_id" />
+          <ScalarProperty Name="group_status" ColumnName="group_status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lesson_Times">
+      <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Lesson_Times">
+        <MappingFragment StoreEntitySet="Lesson_Times">
+          <ScalarProperty Name="lesson_times_id" ColumnName="lesson_times_id" />
+          <ScalarProperty Name="lesson_times_name" ColumnName="lesson_times_name" />
+          <ScalarProperty Name="lesson_times_start_time" ColumnName="lesson_times_start_time" />
+          <ScalarProperty Name="lesson_times_end_time" ColumnName="lesson_times_end_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Qr_Codes">
+      <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Qr_Codes">
+        <MappingFragment StoreEntitySet="Qr_Codes">
+          <ScalarProperty Name="qr_codes_id" ColumnName="qr_codes_id" />
+          <ScalarProperty Name="qr_codes_date" ColumnName="qr_codes_date" />
+          <ScalarProperty Name="qr_codes_value" ColumnName="qr_codes_value" />
+          <ScalarProperty Name="qr_codes_status" ColumnName="qr_codes_status" />
+          <ScalarProperty Name="qr_codes_group_id" ColumnName="qr_codes_group_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Role_Types">
+      <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Role_Types">
+        <MappingFragment StoreEntitySet="Role_Types">
+          <ScalarProperty Name="role_types_id" ColumnName="role_types_id" />
+          <ScalarProperty Name="role_types_name" ColumnName="role_types_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Students">
+        <MappingFragment StoreEntitySet="Students">
+          <ScalarProperty Name="student_id" ColumnName="student_id" />
+          <ScalarProperty Name="student_email" ColumnName="student_email" />
+          <ScalarProperty Name="student_password" ColumnName="student_password" />
+          <ScalarProperty Name="student_name" ColumnName="student_name" />
+          <ScalarProperty Name="student_surname" ColumnName="student_surname" />
+          <ScalarProperty Name="student_father_name" ColumnName="student_father_name" />
+          <ScalarProperty Name="student_phone" ColumnName="student_phone" />
+          <ScalarProperty Name="student_group_id" ColumnName="student_group_id" />
+          <ScalarProperty Name="student_gender_id" ColumnName="student_gender_id" />
+          <ScalarProperty Name="student_device_id" ColumnName="student_device_id" />
+          <ScalarProperty Name="student_first_login" ColumnName="student_first_login" />
+          <ScalarProperty Name="student_status" ColumnName="student_status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students_Attendance">
+      <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Students_Attendance">
+        <MappingFragment StoreEntitySet="Students_Attendance">
+          <ScalarProperty Name="students_attendance_id" ColumnName="students_attendance_id" />
+          <ScalarProperty Name="students_attendance_date" ColumnName="students_attendance_date" />
+          <ScalarProperty Name="students_attendance_status" ColumnName="students_attendance_status" />
+          <ScalarProperty Name="students_attendance_sender_ip" ColumnName="students_attendance_sender_ip" />
+          <ScalarProperty Name="students_attendance_student_id" ColumnName="students_attendance_student_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="System_Settings">
+      <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.System_Settings">
+        <MappingFragment StoreEntitySet="System_Settings">
+          <ScalarProperty Name="system_settings_id" ColumnName="system_settings_id" />
+          <ScalarProperty Name="system_settings_academy_ip" ColumnName="system_settings_academy_ip" />
+          <ScalarProperty Name="system_settings_qr_code_available_minute" ColumnName="system_settings_qr_code_available_minute" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teacher_Roles">
+      <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Teacher_Roles">
+        <MappingFragment StoreEntitySet="Teacher_Roles">
+          <ScalarProperty Name="teacher_roles_id" ColumnName="teacher_roles_id" />
+          <ScalarProperty Name="teacher_roles_teacher_id" ColumnName="teacher_roles_teacher_id" />
+          <ScalarProperty Name="teacher_roles_role_types_id" ColumnName="teacher_roles_role_types_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teachers">
+      <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Teachers">
+        <MappingFragment StoreEntitySet="Teachers">
+          <ScalarProperty Name="teacher_id" ColumnName="teacher_id" />
+          <ScalarProperty Name="teacher_email" ColumnName="teacher_email" />
+          <ScalarProperty Name="teacher_password" ColumnName="teacher_password" />
+          <ScalarProperty Name="teacher_name" ColumnName="teacher_name" />
+          <ScalarProperty Name="teacher_surname" ColumnName="teacher_surname" />
+          <ScalarProperty Name="teacher_phone" ColumnName="teacher_phone" />
+          <ScalarProperty Name="teacher_photo" ColumnName="teacher_photo" />
+          <ScalarProperty Name="teacher_gender_id" ColumnName="teacher_gender_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

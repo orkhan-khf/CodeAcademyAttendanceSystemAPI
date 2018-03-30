@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FarajovsQR_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Groups">
+    <Key>
+      <PropertyRef Name="group_id" />
+    </Key>
+    <Property Name="group_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="group_name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Qr_Codes">
+    <Key>
+      <PropertyRef Name="qr_codes_id" />
+    </Key>
+    <Property Name="qr_codes_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="qr_codes_date" Type="date" />
+    <Property Name="qr_codes_value" Type="nvarchar" MaxLength="20" />
+    <Property Name="qr_codes_status" Type="bit" />
+    <Property Name="qr_codes_group_id" Type="int" />
+  </EntityType>
+  <EntityType Name="Students">
+    <Key>
+      <PropertyRef Name="student_id" />
+    </Key>
+    <Property Name="student_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="student_email" Type="nvarchar" MaxLength="150" />
+    <Property Name="student_password" Type="nvarchar" MaxLength="35" />
+    <Property Name="student_name" Type="nvarchar" MaxLength="50" />
+    <Property Name="student_surname" Type="nvarchar" MaxLength="50" />
+    <Property Name="student_group_id" Type="int" />
+  </EntityType>
+  <EntityType Name="Students_Attendance">
+    <Key>
+      <PropertyRef Name="students_attendance_id" />
+    </Key>
+    <Property Name="students_attendance_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="students_attendance_date" Type="date" />
+    <Property Name="students_attendance_status" Type="bit" />
+    <Property Name="students_attendance_sender_ip" Type="nvarchar" MaxLength="20" />
+    <Property Name="students_attendance_student_id" Type="int" />
+  </EntityType>
+  <Association Name="FK_Qr_Codes_to_Groups">
+    <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
+    <End Role="Qr_Codes" Type="Self.Qr_Codes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Groups">
+        <PropertyRef Name="group_id" />
+      </Principal>
+      <Dependent Role="Qr_Codes">
+        <PropertyRef Name="qr_codes_group_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Students_Attendance_to_Students">
+    <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
+    <End Role="Students_Attendance" Type="Self.Students_Attendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="student_id" />
+      </Principal>
+      <Dependent Role="Students_Attendance">
+        <PropertyRef Name="students_attendance_student_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Students_to_Groups">
+    <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
+    <End Role="Students" Type="Self.Students" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Groups">
+        <PropertyRef Name="group_id" />
+      </Principal>
+      <Dependent Role="Students">
+        <PropertyRef Name="student_group_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FarajovsQR_dbModelStoreContainer">
+    <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Qr_Codes" EntityType="Self.Qr_Codes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Students_Attendance" EntityType="Self.Students_Attendance" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Qr_Codes_to_Groups" Association="Self.FK_Qr_Codes_to_Groups">
+      <End Role="Groups" EntitySet="Groups" />
+      <End Role="Qr_Codes" EntitySet="Qr_Codes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Students_Attendance_to_Students" Association="Self.FK_Students_Attendance_to_Students">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="Students_Attendance" EntitySet="Students_Attendance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Students_to_Groups" Association="Self.FK_Students_to_Groups">
+      <End Role="Groups" EntitySet="Groups" />
+      <End Role="Students" EntitySet="Students" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

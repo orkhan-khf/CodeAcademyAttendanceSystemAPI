@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FarajovsQR_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Students">
+    <Key>
+      <PropertyRef Name="student_id" />
+    </Key>
+    <Property Name="student_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="student_email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="student_password" Type="String" MaxLength="35" FixedLength="false" Unicode="true" />
+    <Property Name="student_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="student_surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="student_group_id" Type="Int32" />
+    <NavigationProperty Name="Students_Attendance" Relationship="Self.FK_Students_Attendance_to_Students" FromRole="Students" ToRole="Students_Attendance" />
+    <NavigationProperty Name="Groups" Relationship="FarajovsQR_dbModel.FK_Students_to_Groups" FromRole="Students" ToRole="Groups" />
+  </EntityType>
+  <EntityType Name="Students_Attendance">
+    <Key>
+      <PropertyRef Name="students_attendance_id" />
+    </Key>
+    <Property Name="students_attendance_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="students_attendance_date" Type="DateTime" Precision="0" />
+    <Property Name="students_attendance_status" Type="Boolean" />
+    <Property Name="students_attendance_sender_ip" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="students_attendance_student_id" Type="Int32" />
+    <NavigationProperty Name="Students" Relationship="Self.FK_Students_Attendance_to_Students" FromRole="Students_Attendance" ToRole="Students" />
+  </EntityType>
+  <Association Name="FK_Students_Attendance_to_Students">
+    <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
+    <End Role="Students_Attendance" Type="Self.Students_Attendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="student_id" />
+      </Principal>
+      <Dependent Role="Students_Attendance">
+        <PropertyRef Name="students_attendance_student_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FarajovsQR_dbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Students" EntityType="Self.Students" />
+    <EntitySet Name="Students_Attendance" EntityType="Self.Students_Attendance" />
+    <AssociationSet Name="FK_Students_Attendance_to_Students" Association="Self.FK_Students_Attendance_to_Students">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="Students_Attendance" EntitySet="Students_Attendance" />
+    </AssociationSet>
+    <EntitySet Name="Groups" EntityType="FarajovsQR_dbModel.Groups" />
+    <EntitySet Name="Qr_Codes" EntityType="FarajovsQR_dbModel.Qr_Codes" />
+    <AssociationSet Name="FK_Qr_Codes_to_Groups" Association="FarajovsQR_dbModel.FK_Qr_Codes_to_Groups">
+      <End Role="Groups" EntitySet="Groups" />
+      <End Role="Qr_Codes" EntitySet="Qr_Codes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Students_to_Groups" Association="FarajovsQR_dbModel.FK_Students_to_Groups">
+      <End Role="Groups" EntitySet="Groups" />
+      <End Role="Students" EntitySet="Students" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Groups">
+    <Key>
+      <PropertyRef Name="group_id" />
+    </Key>
+    <Property Name="group_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="group_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Qr_Codes" Relationship="FarajovsQR_dbModel.FK_Qr_Codes_to_Groups" FromRole="Groups" ToRole="Qr_Codes" />
+    <NavigationProperty Name="Students" Relationship="FarajovsQR_dbModel.FK_Students_to_Groups" FromRole="Groups" ToRole="Students" />
+  </EntityType>
+  <EntityType Name="Qr_Codes">
+    <Key>
+      <PropertyRef Name="qr_codes_id" />
+    </Key>
+    <Property Name="qr_codes_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="qr_codes_date" Type="DateTime" Precision="0" />
+    <Property Name="qr_codes_value" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="qr_codes_status" Type="Boolean" />
+    <Property Name="qr_codes_group_id" Type="Int32" />
+    <NavigationProperty Name="Groups" Relationship="FarajovsQR_dbModel.FK_Qr_Codes_to_Groups" FromRole="Qr_Codes" ToRole="Groups" />
+  </EntityType>
+  <Association Name="FK_Qr_Codes_to_Groups">
+    <End Type="FarajovsQR_dbModel.Groups" Role="Groups" Multiplicity="0..1" />
+    <End Type="FarajovsQR_dbModel.Qr_Codes" Role="Qr_Codes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Groups">
+        <PropertyRef Name="group_id" />
+      </Principal>
+      <Dependent Role="Qr_Codes">
+        <PropertyRef Name="qr_codes_group_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Students_to_Groups">
+    <End Type="FarajovsQR_dbModel.Groups" Role="Groups" Multiplicity="0..1" />
+    <End Type="FarajovsQR_dbModel.Students" Role="Students" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Groups">
+        <PropertyRef Name="group_id" />
+      </Principal>
+      <Dependent Role="Students">
+        <PropertyRef Name="student_group_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
