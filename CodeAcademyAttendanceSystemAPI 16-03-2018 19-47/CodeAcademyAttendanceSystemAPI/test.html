@@ -8,10 +8,14 @@
 <body>
     <script>
         $.ajax({
-            url: "api/student/CheckStudentLogin?student_email=nurlan@code.edu.az&student_password=CA123456",
+            url: "api/student/CheckStudentLogin?student_email=nurlan@code.edu.az&student_password=CA123456&student_device_id=1fd5vdf61vfd",
             type: 'GET',
-            success: function (gelen){
-                $("body").append(gelen)
+            success: function (gelen) {
+                console.log("A: " + gelen);
+                console.log("B: " + gelen.message);
+                if (gelen.message == "true") {
+                    alert("fvdi");
+                }
             }
         });
     </script>
