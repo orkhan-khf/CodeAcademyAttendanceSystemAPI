@@ -109,6 +109,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AntiForgeryToken.cs" />
+    <Compile Include="Models\StudentIPAddress.cs" />
     <Compile Include="Models\CodeAcademyAttendanceSystem_db_Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -143,6 +145,7 @@
     <Compile Include="Models\Qr_Codes.cs">
       <DependentUpon>CodeAcademyAttendanceSystem_db_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ReturnJsonObject.cs" />
     <Compile Include="Models\Role_Types.cs">
       <DependentUpon>CodeAcademyAttendanceSystem_db_Model.tt</DependentUpon>
     </Compile>
