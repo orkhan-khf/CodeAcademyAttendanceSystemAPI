@@ -26,7 +26,7 @@ namespace CodeAcademyAttendanceSystemAPI.Models
                     hashedInputStringBuilder.Append(b.ToString("X2"));
                 }
 
-                if (hashedInputStringBuilder.ToString() == token_hash)
+                if (hashedInputStringBuilder.ToString().ToLower() == token_hash)
                 {
                     return true;
                 }
