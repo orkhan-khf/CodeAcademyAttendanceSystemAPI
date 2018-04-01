@@ -18,15 +18,15 @@ namespace CodeAcademyAttendanceSystemAPI
             );
             config.Routes.MapHttpRoute(
                 name: "Login",
-                routeTemplate: "api/{controller}/Login/{student_email}/{student_password}/{student_device_id}"
+                routeTemplate: "api/{controller}/Login/{student_email}/{student_password}/{student_device_id}/{random_value}/{token}"
             );
             config.Routes.MapHttpRoute(
                 name: "SetNewPassword",
-                routeTemplate: "api/{controller}/SetNewPassword/{student_email}/{student_password}/{student_new_password}/{student_device_id}"
+                routeTemplate: "api/{controller}/SetNewPassword/{student_email}/{student_password}/{student_new_password}/{student_device_id}/{random_value}/{token}"
             );
             config.Routes.MapHttpRoute(
                 name: "ApproveAttendance",
-                routeTemplate: "api/{controller}/ApproveAttendance/{student_email}/{student_password}/{student_device_id}/{qr_code}"
+                routeTemplate: "api/{controller}/ApproveAttendance/{student_id}/{student_device_id}/{qr_code}/{random_value}/{token}"
             );
             var json = config.Formatters.JsonFormatter;
             json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;

@@ -19,19 +19,36 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
 
         StudentIPAddress StudentIPAddress = new StudentIPAddress();
 
+        AntiForgeryToken AntiForgeryToken = new AntiForgeryToken();
+
         //ApproveAttendance Action'da istifadə edilən property'lər
         DateTime today = Convert.ToDateTime(DateTime.Now.ToShortDateString());
 
-        //CheckStudentLogin Action'da istifadə edilən property'lər
+        //Bütün Action'larda istifadə edilən property'lər
         string JsonString;
 
+        //-----------------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------------------------------------
 
         //Tələbə mobil application ilə giriş edəndə
         [HttpGet]
-        public HttpResponseMessage Login(string student_email, string student_password, string student_device_id)
+        public HttpResponseMessage Login(string student_email, string student_password, string student_device_id, int random_value, string token)
         {
             // Aşağıda ReturnJsonObject methoduna parametr kimi ötürmək üçün HttpResponseMessage tipində bir cavab yaradılır...
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+
+            //Tokeni yoxlayır (AntiForgeryToken Class'da ətraflı yazılıb)
+            if (!AntiForgeryToken.Verify(random_value, token))
+            {
+                JsonString = "{" +
+                                    "\"Success\" : false," +
+                                    "\"ErrorMessage\" : \"Giriş icazəsi verilmədi!\"," +
+                                    "\"SuccessMessage\" : null," +
+                                    "\"SetNewPassword\" : false " +
+                                "}";
+                return ReturnJsonObject.StringToJson(JsonString, response);
+            }
 
             //URL'dən gələn email və password dəyərləri boşdursa (və ya null)...
             if (student_email == null || student_email == "" || student_password == null || student_password == "")
@@ -120,6 +137,17 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
                 return ReturnJsonObject.StringToJson(JsonString, response);
             }
 
+            if(check_logged_student_informations.student_status != true)
+            {
+                JsonString = "{" +
+                                   "\"Success\" : false," +
+                                   "\"ErrorMessage\" : \"Sizin hesabınız bağlıdır!\"," +
+                                   "\"SuccessMessage\" : null," +
+                                   "\"SetNewPassword\" : false " +
+                               "}";
+                return ReturnJsonObject.StringToJson(JsonString, response);
+            }
+
             //Əgər tələbə müvəffəqiyyətlə giriş edibsə...
             if (check_logged_student_informations.student_id > 0)
             {
@@ -130,8 +158,7 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
                                                             "{" +
                                                                "\"StudentId\" : " + check_logged_student_informations.student_id + "," +
                                                                "\"StudentName\" : \"" + check_logged_student_informations.student_name + "\"," +
-                                                               "\"StudentSurname\" : \"" + check_logged_student_informations.student_surname + "\"," +
-                                                               "\"StudentAccountStatus\" : " + check_logged_student_informations.student_status.ToString().ToLower() +
+                                                               "\"StudentSurname\" : \"" + check_logged_student_informations.student_surname + "\"" +
                                                            "}," +
                                    "\"SetNewPassword\" : false " +
                                "}";
@@ -149,10 +176,22 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage SetNewPassword(string student_email, string student_password, string student_new_password, string student_device_id)
+        public HttpResponseMessage SetNewPassword(string student_email, string student_password, string student_new_password, string student_device_id, int random_value, string token)
         {
             // Aşağıda ReturnJsonObject methoduna parametr kimi ötürmək üçün HttpResponseMessage tipində bir cavab yaradılır...
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+
+            //Tokeni yoxlayır (AntiForgeryToken Class'da ətraflı yazılıb)
+            if (!AntiForgeryToken.Verify(random_value, token))
+            {
+                JsonString = "{" +
+                                    "\"Success\" : false," +
+                                    "\"ErrorMessage\" : \"Giriş icazəsi verilmədi!\"," +
+                                    "\"SuccessMessage\" : null," +
+                                    "\"SetNewPassword\" : false " +
+                                "}";
+                return ReturnJsonObject.StringToJson(JsonString, response);
+            }
 
             //URL'dən gələn email, password və cihazın ID dəyərləri boşdursa (və ya null)...
             if (student_email == null || student_email == "" || student_password == null || student_password == "" || student_device_id == null || student_device_id == "")
@@ -222,25 +261,37 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage ApproveAttendance(string student_email, string student_password, string student_device_id, string qr_code)
+        public HttpResponseMessage ApproveAttendance(string student_id, string student_device_id, string qr_code, int random_value, string token)
         {
             // Aşağıda ReturnJsonObject methoduna parametr kimi ötürmək üçün HttpResponseMessage tipində bir cavab yaradılır...
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
 
-            //Tələbə Code Academy'dən kənarda QR kodu təsdiqləmək istəyirsə...
-            //if (!StudentIPAddress.Check())
-            //{
-            //    JsonString = "{" +
-            //                       "\"Success\" : false," +
-            //                       "\"ErrorMessage\" : \"Siz Code Academy'nin Wifi'na qoşulmamısınız!\"," +
-            //                       "\"SuccessMessage\" : null," +
-            //                       "\"SetNewPassword\" : false " +
-            //                   "}";
-            //    return ReturnJsonObject.StringToJson(JsonString, response);
-            //}
+            //Tokeni yoxlayır (AntiForgeryToken Class'da ətraflı yazılıb)
+            if (!AntiForgeryToken.Verify(random_value, token))
+            {
+                JsonString = "{" +
+                                    "\"Success\" : false," +
+                                    "\"ErrorMessage\" : \"Giriş icazəsi verilmədi!\"," +
+                                    "\"SuccessMessage\" : null," +
+                                    "\"SetNewPassword\" : false " +
+                                "}";
+                return ReturnJsonObject.StringToJson(JsonString, response);
+            }
 
-            //URL'dən gələn email, password və ya cihazın ID dəyərləri boşdursa (və ya null)...
-            if (student_email == null || student_email == "" || student_password == null || student_password == "" || student_device_id == null || student_device_id == "")
+            //Tələbə Code Academy'dən kənarda QR kodu təsdiqləmək istəyirsə...
+            if (!StudentIPAddress.Check())
+            {
+                JsonString = "{" +
+                                   "\"Success\" : false," +
+                                   "\"ErrorMessage\" : \"Siz Code Academy'nin Wifi'na qoşulmamısınız!\"," +
+                                   "\"SuccessMessage\" : null," +
+                                   "\"SetNewPassword\" : false " +
+                               "}";
+                return ReturnJsonObject.StringToJson(JsonString, response);
+            }
+
+            //URL'dən gələn id və ya cihazın ID dəyərləri boşdursa (və ya null)...
+            if (student_id == null || Convert.ToInt32(student_id) < 1 || student_id == "" || student_device_id == null || student_device_id == "")
             {
                 JsonString = "{" +
                                     "\"Success\" : false," +
@@ -251,7 +302,7 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
                 return ReturnJsonObject.StringToJson(JsonString, response);
             }
 
-            //URL'dən Qr kod dəyəri boşdursa (və ya null)...
+            //URL'dən gələn Qr kod dəyəri boşdursa (və ya null)...
             if (qr_code == null || qr_code == "")
             {
                 JsonString = "{" +
@@ -265,28 +316,83 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
 
             try
             {
-                int exiting_user_id = (from s in db.Students
+                int std_id = Convert.ToInt32(student_id);
+
+                //URL'dən gələn məlumatlara əsasən tələbənin student_id, student_group_id dəyərlərini al...
+                var student_info = (from s in db.Students
                                    join g in db.Groups on s.student_group_id equals g.group_id
                                    join q in db.Qr_Codes on s.student_group_id equals q.qr_codes_group_id
-                                   where s.student_email == student_email && s.student_password == student_password && s.student_device_id == student_device_id
-                                   && q.qr_codes_status == true
-                                   && q.qr_codes_date == today
-                                   && q.qr_codes_value == qr_code
+                                   where s.student_id == std_id && s.student_device_id == student_device_id && q.qr_codes_date == today
                                    select new
                                    {
-                                       s.student_id
-                                   }).First().student_id;
+                                       s.student_id,
+                                       g.group_name,
+                                       q.qr_codes_status,
+                                       q.qr_codes_value,
+                                       q.qr_codes_date
+                                   }).FirstOrDefault();
 
-                if (exiting_user_id > 0)
+                if(student_info == null)
                 {
-                    Students_Attendance student_attendance = db.Students_Attendance.Where(a => a.students_attendance_date == today && a.students_attendance_status == false && a.students_attendance_student_id == exiting_user_id).First();
+                    JsonString = "{" +
+                                    "\"Success\" : false," +
+                                    "\"ErrorMessage\" : \"Sizin grupda bu günə aid Qr kod tapılmadı.\"," +
+                                    "\"SuccessMessage\" : null," +
+                                    "\"SetNewPassword\" : false " +
+                                "}";
+                    return ReturnJsonObject.StringToJson(JsonString, response);
+                }
+
+                if(student_info.qr_codes_value != qr_code)
+                {
+                    JsonString = "{" +
+                                    "\"Success\" : false," +
+                                    "\"ErrorMessage\" : \"Qr kod səhvdir!\"," +
+                                    "\"SuccessMessage\" : null," +
+                                    "\"SetNewPassword\" : false " +
+                                "}";
+                    return ReturnJsonObject.StringToJson(JsonString, response);
+                }
+
+                if (student_info.qr_codes_status != true)
+                {
+                    JsonString = "{" +
+                                    "\"Success\" : false," +
+                                    "\"ErrorMessage\" : \"Bu QR kod artıq etibarlı deyil!\"," +
+                                    "\"SuccessMessage\" : null," +
+                                    "\"SetNewPassword\" : false " +
+                                "}";
+                    return ReturnJsonObject.StringToJson(JsonString, response);
+                }
+
+                if (student_info != null && student_info.qr_codes_status == true && student_info.qr_codes_value == qr_code && student_info.qr_codes_date == today)
+                {
+                    Students_Attendance student_attendance = db.Students_Attendance.Where(a => a.students_attendance_date == today && a.students_attendance_student_id == student_info.student_id).First();
+                    if(student_attendance.students_attendance_status == true)
+                    {
+                        JsonString = "{" +
+                                        "\"Success\" : false," +
+                                        "\"ErrorMessage\" : \"Siz bu gün dərsdə iştirak etdiyinizi artıq təsdiq etmisiniz\"," +
+                                        "\"SuccessMessage\" : null," +
+                                        "\"SetNewPassword\" : false " +
+                                    "}";
+                        return ReturnJsonObject.StringToJson(JsonString, response);
+                    }
                     student_attendance.students_attendance_status = true;
                     student_attendance.students_attendance_sender_ip = StudentIPAddress.Get();
                     db.SaveChanges();
+
+                    JsonString = "{" +
+                                    "\"Success\" : true," +
+                                    "\"ErrorMessage\" : \"Sizin dərsdə iştirak etdiyiniz təsdiqləndi.\"," +
+                                    "\"SuccessMessage\" : null," +
+                                    "\"SetNewPassword\" : false " +
+                                "}";
+                    return ReturnJsonObject.StringToJson(JsonString, response);
                 }
                 JsonString = "{" +
-                                    "\"Success\" : true," +
-                                    "\"ErrorMessage\" : \"QR Code oxundu. Attendance update edildi. Dersdesiniz\"," +
+                                    "\"Success\" : false," +
+                                    "\"ErrorMessage\" : \"Xahiş edirik programı bağlayıb təkrar giriş edərək yenidən cəhd edin\"," +
                                     "\"SuccessMessage\" : null," +
                                     "\"SetNewPassword\" : false " +
                                 "}";

@@ -41,3 +41,13 @@ C:\Users\Developer\Desktop\API master\CodeAcademyAttendanceSystemAPI 16-03-2018 
 C:\Users\Developer\Desktop\API master\CodeAcademyAttendanceSystemAPI 16-03-2018 19-47\CodeAcademyAttendanceSystemAPI\obj\Debug\CodeAcademyAttendanceSystemAPI.csproj.CopyComplete
 C:\Users\Developer\Desktop\API master\CodeAcademyAttendanceSystemAPI 16-03-2018 19-47\CodeAcademyAttendanceSystemAPI\obj\Debug\CodeAcademyAttendanceSystemAPI.dll
 C:\Users\Developer\Desktop\API master\CodeAcademyAttendanceSystemAPI 16-03-2018 19-47\CodeAcademyAttendanceSystemAPI\obj\Debug\CodeAcademyAttendanceSystemAPI.pdb
+C:\Users\Developer\Desktop\API master\CodeAcademyAttendanceSystemAPI 16-03-2018 19-47\CodeAcademyAttendanceSystemAPI\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Developer\Desktop\API master\CodeAcademyAttendanceSystemAPI 16-03-2018 19-47\CodeAcademyAttendanceSystemAPI\bin\Microsoft.Owin.dll
+C:\Users\Developer\Desktop\API master\CodeAcademyAttendanceSystemAPI 16-03-2018 19-47\CodeAcademyAttendanceSystemAPI\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\Developer\Desktop\API master\CodeAcademyAttendanceSystemAPI 16-03-2018 19-47\CodeAcademyAttendanceSystemAPI\bin\Microsoft.Owin.Security.dll
+C:\Users\Developer\Desktop\API master\CodeAcademyAttendanceSystemAPI 16-03-2018 19-47\CodeAcademyAttendanceSystemAPI\bin\Owin.dll
+C:\Users\Developer\Desktop\API master\CodeAcademyAttendanceSystemAPI 16-03-2018 19-47\CodeAcademyAttendanceSystemAPI\bin\System.Web.Cors.dll
+C:\Users\Developer\Desktop\API master\CodeAcademyAttendanceSystemAPI 16-03-2018 19-47\CodeAcademyAttendanceSystemAPI\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Developer\Desktop\API master\CodeAcademyAttendanceSystemAPI 16-03-2018 19-47\CodeAcademyAttendanceSystemAPI\bin\Microsoft.Owin.xml
+C:\Users\Developer\Desktop\API master\CodeAcademyAttendanceSystemAPI 16-03-2018 19-47\CodeAcademyAttendanceSystemAPI\bin\Microsoft.Owin.Security.xml
+C:\Users\Developer\Desktop\API master\CodeAcademyAttendanceSystemAPI 16-03-2018 19-47\CodeAcademyAttendanceSystemAPI\bin\Microsoft.Owin.Security.Cookies.xml
