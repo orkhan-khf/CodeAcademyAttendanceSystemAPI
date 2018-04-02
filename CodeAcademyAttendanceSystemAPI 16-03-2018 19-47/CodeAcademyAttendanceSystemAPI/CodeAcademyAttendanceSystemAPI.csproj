@@ -163,7 +163,7 @@
     <Compile Include="Models\Qr_Codes.cs">
       <DependentUpon>CodeAcademyAttendanceSystem_db_Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ReturnJsonObject.cs" />
+    <Compile Include="Models\JsonObjectOperations.cs" />
     <Compile Include="Models\Role_Types.cs">
       <DependentUpon>CodeAcademyAttendanceSystem_db_Model.tt</DependentUpon>
     </Compile>
