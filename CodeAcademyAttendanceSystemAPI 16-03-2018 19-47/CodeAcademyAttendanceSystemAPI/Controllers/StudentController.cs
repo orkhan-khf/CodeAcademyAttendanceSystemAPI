@@ -24,11 +24,6 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
         //ApproveAttendance Action'da istifadə edilən property'lər
         DateTime today = Convert.ToDateTime(DateTime.Now.ToShortDateString());
 
-        //Bütün Action'larda istifadə edilən property'lər
-        string JsonString;
-
-        //-----------------------------------------------------------------------------------------------------------------
-        //-----------------------------------------------------------------------------------------------------------------
         //-----------------------------------------------------------------------------------------------------------------
         //-----------------------------------------------------------------------------------------------------------------
         //-----------------------------------------------------------------------------------------------------------------
@@ -36,13 +31,13 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
 
         //Tələbə mobil application ilə giriş edəndə
         [HttpGet]
-        public HttpResponseMessage Login(string student_email, string student_password, string student_device_id, int random_value, string token)
+        public HttpResponseMessage Login(string student_email, string student_password, string student_device_id, string token)
         {
             // Aşağıda ReturnJsonObject methoduna parametr kimi ötürmək üçün HttpResponseMessage tipində bir cavab yaradılır...
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
 
             //Tokeni yoxlayır (AntiForgeryToken Class'da ətraflı yazılıb)
-            if (!AntiForgeryToken.Verify(random_value, token))
+            if (!AntiForgeryToken.Verify(student_email, token))
             {
                 return JsonObjectOperations.JsonGenerator(response, false, null, "\"Giriş icazəsi verilmədi!\"", false);
             }
@@ -77,7 +72,8 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
             //Əgər tələbə hesabına ilk dəfə (və ya resetləndikdən sonra ilk dəfə) daxil olursa...
             if (check_logged_student_informations.student_first_login == true)
             {
-                return JsonObjectOperations.JsonGenerator(response, true, null, null, true);
+                int student_id = check_logged_student_informations.student_id;
+                return JsonObjectOperations.JsonGenerator(response, true, student_id, null, true);
             }
 
             //Əgər tələbənin giriş etməyə çalışdığı cihaz ilk dəfə giriş etdiyi cihaz deyilsə...
@@ -86,6 +82,7 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
                 return JsonObjectOperations.JsonGenerator(response, false, null, "\"Xahiş edirik öz cihazınızla daxil olun (Əgər cihazınızı dəyişmisinizsə, zəhmət olmasa müəlliminizə bildirin.)\"", false);
             }
 
+            //Tələbənin hesabı bağlıdırsa
             if(check_logged_student_informations.student_status != true)
             {
                 return JsonObjectOperations.JsonGenerator(response, false, null, "\"Sizin hesabınız bağlıdır!\"", false);
@@ -94,56 +91,9 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
             //Əgər tələbə müvəffəqiyyətlə giriş edibsə...
             if (check_logged_student_informations.student_id > 0)
             {
-                string StudentAttendance, AttendanceInfo, AttendanceRatio;
-
-                //Əgər tələbənin grupunda dərs keçirilibsə...
-                if (check_logged_student_informations.Students_Attendance.Count() > 0)
-                {
-                    //Tələbənin gəldiyi/gəlmədiyi günləri tarix:status formatında çıxartmaq üçün Json strukturu qur......
-                    StudentAttendance = "[";
-                    //Tələbənin gəldiyi/gəlmədiyi günlərin tarixlərini və statusunu foreach ilə Json obyektinə doldur...
-                    foreach (var item in check_logged_student_informations.Students_Attendance.OrderByDescending(d => d.students_attendance_date))
-                    {
-                        StudentAttendance += "{\"AttendanceDate\" : " + "\"" + item.students_attendance_date.Value.ToShortDateString() + "\"" + ",";
-                        StudentAttendance += "\"AttendanceStatus\" : " + item.students_attendance_status.ToString().ToLower() + "},";
-                    }
-                    //Json obyektindən ən sonuncu vergülü götür (error çıxartmasın deyə)...
-                    StudentAttendance = StudentAttendance.Substring(0, StudentAttendance.Length - 1);
-                    //Json obyektini bağla...
-                    StudentAttendance += "]";
-
-                    //Tələbənin neçə dərsin neçəsində iştirak etdiyini hesabla...
-                    AttendanceInfo = "\"Siz ümumi " + check_logged_student_informations.Students_Attendance.Count() + " dərsdən " + check_logged_student_informations.Students_Attendance.Where(s => s.students_attendance_status == true).Count() + " dərsdə iştirak etmisiniz.\"";
-
-                    //Tələbənin dərslərdə iştirak nisbətini 100 üzərindən hesabla...
-                    AttendanceRatio = "\"100 / " + (((double)check_logged_student_informations.Students_Attendance.Where(a => a.students_attendance_status == true).Count() * 100) / (double)check_logged_student_informations.Students_Attendance.Count()).ToString("#.##") + "\"";
-                }
-                else
-                {
-                    //Əgər tələbənin grupunda dərs keçirilməyibsə...
-                    StudentAttendance = "[{\"AttendanceDate\": null}]";
-                    AttendanceInfo = "null";
-                    AttendanceRatio = "null";
-                }
-
-                //JsonGenerator method'na göndərmək üçün string tipində Json strukturu hazırla
-                string StudentProfile = "{" +
-                                             "\"Id\" : " + check_logged_student_informations.student_id + "," +
-                                             "\"Name\" : \"" + check_logged_student_informations.student_name + "\"," +
-                                             "\"Surname\" : \"" + check_logged_student_informations.student_surname + "\"," +
-                                             "\"FatherName\" : \"" + check_logged_student_informations.student_father_name + "\"," +
-                                             "\"Phone\" : \"" + check_logged_student_informations.student_phone + "\"," +
-                                             "\"Gender\" : \"" + check_logged_student_informations.Genders.gender_name + "\"," +
-                                             "\"Grup\" : \"" + check_logged_student_informations.Groups.group_name + "\"," +
-                                             "\"Group_Schedule\" : \"" + check_logged_student_informations.Groups.Lesson_Times.Group_Schedule.group_schedule_name + "\"," +
-                                             "\"LessonTime\" : \"" + check_logged_student_informations.Groups.Lesson_Times.lesson_times_name + "\"," +
-                                             "\"LessonBeginTime\" : \"" + check_logged_student_informations.Groups.Lesson_Times.lesson_times_start_time.Value.ToString("hh\\:mm") + "\"," +
-                                             "\"LessonEndTime\" : \"" + check_logged_student_informations.Groups.Lesson_Times.lesson_times_end_time.Value.ToString("hh\\:mm") + "\"," +
-                                             "\"AttendanceTable\" : " + StudentAttendance + "," +
-                                             "\"AttendanceInfo\" : " + AttendanceInfo + "," +
-                                             "\"AttendanceRatio\" : " + AttendanceRatio +
-                                        "}";
-                return JsonObjectOperations.JsonGenerator(response, true, StudentProfile, null, false);
+                int student_id = check_logged_student_informations.student_id;
+                
+                return JsonObjectOperations.JsonGenerator(response, true, student_id, null, false);
             }
 
             //Əgər yuxarıdakı şərtlərin heç biri ödənmirsə...
@@ -151,30 +101,36 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage SetNewPassword(string student_email, string student_password, string student_new_password, string student_device_id, int random_value, string token)
+        public HttpResponseMessage SetNewPassword(int student_id, string student_new_password, string student_device_id, string token)
         {
             // Aşağıda ReturnJsonObject methoduna parametr kimi ötürmək üçün HttpResponseMessage tipində bir cavab yaradılır...
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
 
             //Tokeni yoxlayır (AntiForgeryToken Class'da ətraflı yazılıb)
-            if (!AntiForgeryToken.Verify(random_value, token))
+            if (!AntiForgeryToken.Verify(student_id, token))
             {
                 return JsonObjectOperations.JsonGenerator(response, false, null, "\"Giriş icazəsi verilmədi!\"", false);
             }
 
-            //URL'dən gələn email, password və cihazın ID dəyərləri boşdursa (və ya null)...
-            if (student_email == null || student_email == "" || student_password == null || student_password == "" || student_device_id == null || student_device_id == "")
+            //URL'dən student_id cihazın ID dəyərləri boşdursa (və ya null)...
+            if (student_id < 0 || student_device_id == null || student_device_id == "")
             {
                 return JsonObjectOperations.JsonGenerator(response, false, null, "\"Xahiş edirik programı bağlayıb təkrar giriş edərək yenidən cəhd edin\"", false);
             }
 
-            //Databazadan form'dan gələn email'ə uyğun emailı seç...
-            Students select_student_information_for_reset_password = db.Students.Where(s => s.student_email == student_email).FirstOrDefault();
+            //Form'dan gələn id'ə uyğun tələbəni seç...
+            Students select_student_information_for_reset_password = db.Students.Where(s => s.student_id == student_id).FirstOrDefault();
 
-            //Əgər Form'dan gələn email'ə uyğun nəticə tapılmadısa və ya email'in şifrəsi düzgün daxil edilməyibsə...
-            if (select_student_information_for_reset_password == null || !PasswordStorage.VerifyPassword(student_password, select_student_information_for_reset_password.student_password))
+            //Əgər Form'dan gələn Id'ə uyğun nəticə tapılmadısa...
+            if (select_student_information_for_reset_password == null)
             {
                 return JsonObjectOperations.JsonGenerator(response, false, null, "\"Məlumatlar düzgün deyil! Xahiş edirik programı bağlayıb təkrar giriş edərək yenidən cəhd edin\"", false);
+            }
+
+            //Əgər tələbə şifrəsini daha öncədən təyin edibsə (Şifrəsini unudan tələbələrin hesabında admin tərəfindən şifrə resetlənəcək şifrə bərpa etmək üçün)...
+            if (select_student_information_for_reset_password.student_first_login == false)
+            {
+                return JsonObjectOperations.JsonGenerator(response, false, null, "\"Sizin şifrəniz artıq təyin edilib! Şifrənizi sıfırlamaq üçün müəlliminizə bildirin\"", false);
             }
 
             //Tələbənin şifrəsini update et...
@@ -195,13 +151,118 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage ApproveAttendance(string student_id, string student_device_id, string qr_code, int random_value, string token)
+        public HttpResponseMessage StudentProfile(int student_id, string student_device_id, string token)
+        {
+            // Aşağıda ReturnJsonObject methoduna parametr kimi ötürmək üçün HttpResponseMessage tipində bir cavab yaradılır...
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+
+            //Tokeni yoxlayır (AntiForgeryToken Class'da ətraflı yazılıb)...
+            if (!AntiForgeryToken.Verify(student_id, token))
+            {
+                return JsonObjectOperations.JsonGenerator(response, false, null, "\"Giriş icazəsi verilmədi!\"", false);
+            }
+
+            //Default null olur, əgər tələbənin grupunda dərs keçirilibsə aşağıda tələbənin davamiyyət nisbətini hesablayır...
+            string AttendanceRatio = "null";
+            
+            //Databazadan, form'dan gələn student_id'ə uyğun tələbəni seç...
+            Students check_logged_student_informations = db.Students.Where(s => s.student_id == student_id).FirstOrDefault();
+
+            //Əgər Id'ə uyğun tələbə tapılmadısa...
+            if(check_logged_student_informations == null)
+            {
+                return JsonObjectOperations.JsonGenerator(response, false, null, "\"Tələbə məlumatları düzgün deyil!\"", false);
+            }
+
+            //Əgər tələbənin grupunda dərs keçirilibsə...
+            if (check_logged_student_informations.Students_Attendance.Count() > 0)
+            {
+                //Tələbənin dərslərdə iştirak nisbətini 100 üzərindən hesabla...
+                AttendanceRatio = "\"100 / " + (((double)check_logged_student_informations.Students_Attendance.Where(a => a.students_attendance_status == true).Count() * 100) / (double)check_logged_student_informations.Students_Attendance.Count()).ToString("#.##") + "\"";
+            }
+
+            //JsonGenerator method'na göndərmək üçün string tipində Json strukturu hazırla...
+            string StudentProfile = "{" +
+                                         "\"Id\" : " + check_logged_student_informations.student_id + "," +
+                                         "\"Name\" : \"" + check_logged_student_informations.student_name + "\"," +
+                                         "\"Surname\" : \"" + check_logged_student_informations.student_surname + "\"," +
+                                         "\"FatherName\" : \"" + check_logged_student_informations.student_father_name + "\"," +
+                                         "\"Phone\" : \"" + check_logged_student_informations.student_phone + "\"," +
+                                         "\"Gender\" : \"" + check_logged_student_informations.Genders.gender_name + "\"," +
+                                         "\"Grup\" : \"" + check_logged_student_informations.Groups.group_name + "\"," +
+                                         "\"Group_Schedule\" : \"" + check_logged_student_informations.Groups.Lesson_Times.Group_Schedule.group_schedule_name + "\"," +
+                                         "\"LessonTime\" : \"" + check_logged_student_informations.Groups.Lesson_Times.lesson_times_name + "\"," +
+                                         "\"LessonBeginTime\" : \"" + check_logged_student_informations.Groups.Lesson_Times.lesson_times_start_time.Value.ToString("hh\\:mm") + "\"," +
+                                         "\"LessonEndTime\" : \"" + check_logged_student_informations.Groups.Lesson_Times.lesson_times_end_time.Value.ToString("hh\\:mm") + "\"," +
+                                         "\"AttendanceRatio\" : " + AttendanceRatio +
+                                    "}";
+
+            return JsonObjectOperations.JsonGenerator(response, true, StudentProfile, null, false);
+        }
+
+        [HttpGet]
+        public HttpResponseMessage StudentAttendanceList(string token, string device_id, int student_id)
+        {
+            // Aşağıda ReturnJsonObject methoduna parametr kimi ötürmək üçün HttpResponseMessage tipində bir cavab yaradılır...
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+
+            //Tokeni yoxlayır (AntiForgeryToken Class'da ətraflı yazılıb)...
+            if (!AntiForgeryToken.Verify(student_id, token))
+            {
+                return JsonObjectOperations.JsonGenerator(response, false, null, "\"Giriş icazəsi verilmədi!\"", false);
+            }
+
+            //Databazadan, form'dan gələn student_id'ə uyğun tələbəni seç...
+            Students check_logged_student_informations = db.Students.Where(s => s.student_id == student_id).FirstOrDefault();
+
+            //Əgər Id'ə uyğun tələbə tapılmadısa...
+            if (check_logged_student_informations == null)
+            {
+                return JsonObjectOperations.JsonGenerator(response, false, null, "\"Tələbə məlumatları düzgün deyil!\"", false);
+            }
+
+            string StudentAttendance, AttendanceInfo;
+            //Əgər tələbənin grupunda dərs keçirilibsə...
+            if (check_logged_student_informations.Students_Attendance.Count() > 0)
+            {
+                //Tələbənin gəldiyi/gəlmədiyi günləri tarix:status formatında çıxartmaq üçün Json strukturu qur......
+                StudentAttendance = "[";
+                //Tələbənin gəldiyi/gəlmədiyi günlərin tarixlərini və statusunu foreach ilə Json obyektinə doldur...
+                foreach (var item in check_logged_student_informations.Students_Attendance.OrderByDescending(d => d.students_attendance_date))
+                {
+                    StudentAttendance += "{\"AttendanceDate\" : " + "\"" + item.students_attendance_date.Value.ToShortDateString() + "\"" + ",";
+                    StudentAttendance += "\"AttendanceStatus\" : " + item.students_attendance_status.ToString().ToLower() + "},";
+                }
+                //Json obyektindən ən sonuncu vergülü götür (error çıxartmasın deyə)...
+                StudentAttendance = StudentAttendance.Substring(0, StudentAttendance.Length - 1);
+                //Json obyektini bağla...
+                StudentAttendance += "]";
+
+                //Tələbənin neçə dərsin neçəsində iştirak etdiyini hesabla...
+                AttendanceInfo = "\"Siz ümumi " + check_logged_student_informations.Students_Attendance.Count() + " dərsdən " + check_logged_student_informations.Students_Attendance.Where(s => s.students_attendance_status == true).Count() + " dərsdə iştirak etmisiniz.\"";
+            }
+            else
+            {
+                StudentAttendance = "[{\"AttendanceDate\": null}]";
+                AttendanceInfo = "null";
+            }
+            StudentAttendance = "{" +
+                                             "\"AttendanceTable\" : " + StudentAttendance + "," +
+                                             "\"AttendanceInfo\" : " + AttendanceInfo +
+                                        "}";
+            return JsonObjectOperations.JsonGenerator(response, true, StudentAttendance, null, false);
+
+        }
+
+
+        [HttpGet]
+        public HttpResponseMessage ApproveAttendance(int student_id, string student_device_id, string qr_code, string token)
         {
             // Aşağıda ReturnJsonObject methoduna parametr kimi ötürmək üçün HttpResponseMessage tipində bir cavab yaradılır...
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
 
             //Tokeni yoxlayır (AntiForgeryToken Class'da ətraflı yazılıb)
-            if (!AntiForgeryToken.Verify(random_value, token))
+            if (!AntiForgeryToken.Verify(student_id, token))
             {
                 return JsonObjectOperations.JsonGenerator(response, false, null, "\"Giriş icazəsi verilmədi!\"", false);
             }
@@ -212,8 +273,8 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
                 return JsonObjectOperations.JsonGenerator(response, false, null, "\"Siz Code Academy'nin Wifi'na qoşulmamısınız!\"", false);
             }
 
-            //URL'dən gələn id və ya cihazın ID dəyərləri boşdursa (və ya null)...
-            if (student_id == null || Convert.ToInt32(student_id) < 1 || student_id == "" || student_device_id == null || student_device_id == "")
+            //URL'dən gələn student_id, cihazın ID və ya token parametrləri boşdursa (və ya null)...
+            if (student_id < 0 || student_device_id == null || student_device_id == "" || token == null || token == "")
             {
                 return JsonObjectOperations.JsonGenerator(response, false, null, "\"Xahiş edirik programı bağlayıb təkrar giriş edərək yenidən cəhd edin\"", false);
             }

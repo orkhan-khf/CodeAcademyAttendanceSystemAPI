@@ -37,5 +37,28 @@ namespace CodeAcademyAttendanceSystemAPI.Models
             response.Content = new StringContent(JsonString, Encoding.UTF8, "application/json");
             return response;
         }
+
+
+
+        //1. OVERLOAD
+        //Login action'da SuccessMessage əvəzinə StudentId göndərə bilmək üçün overload yazıldı...
+        public HttpResponseMessage JsonGenerator(HttpResponseMessage response, bool success_status, int StudentId, string ErrorMessage, bool SetNewPassword)
+        {
+            //Əgər ErrorMessage null gəlibsə dəyərinidə string tipində null yazdır...
+            if (ErrorMessage == null)
+            {
+                ErrorMessage = "null";
+            }
+            //Json obyektini string formatında düzəlt...
+            JsonString = "{" +
+                                    "\"Success\" : " + success_status.ToString().ToLower() + "," +
+                                    "\"StudentId\" : " + StudentId + "," +
+                                    "\"ErrorMessage\" : " + ErrorMessage + "," +
+                                    "\"SetNewPassword\" : " + SetNewPassword.ToString().ToLower() + " " +
+                                "}";
+            //String tipindəki Json'u Json formatında return et...
+            response.Content = new StringContent(JsonString, Encoding.UTF8, "application/json");
+            return response;
+        }
     }
 }
