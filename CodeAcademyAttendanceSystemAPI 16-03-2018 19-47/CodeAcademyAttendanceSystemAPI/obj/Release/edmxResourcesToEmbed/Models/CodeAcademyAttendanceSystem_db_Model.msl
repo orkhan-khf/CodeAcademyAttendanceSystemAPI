@@ -53,6 +53,7 @@
     <EntitySetMapping Name="Qr_Codes">
       <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Qr_Codes">
         <MappingFragment StoreEntitySet="Qr_Codes">
+          <ScalarProperty Name="qr_code_deadline_time" ColumnName="qr_code_deadline_time" />
           <ScalarProperty Name="qr_codes_group_id" ColumnName="qr_codes_group_id" />
           <ScalarProperty Name="qr_codes_status" ColumnName="qr_codes_status" />
           <ScalarProperty Name="qr_codes_value" ColumnName="qr_codes_value" />

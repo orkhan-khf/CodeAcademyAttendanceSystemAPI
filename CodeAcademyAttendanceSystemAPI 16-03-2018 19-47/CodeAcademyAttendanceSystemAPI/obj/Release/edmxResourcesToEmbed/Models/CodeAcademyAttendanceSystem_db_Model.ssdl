@@ -53,6 +53,7 @@
     <Property Name="qr_codes_value" Type="nvarchar" MaxLength="20" />
     <Property Name="qr_codes_status" Type="bit" />
     <Property Name="qr_codes_group_id" Type="int" />
+    <Property Name="qr_code_deadline_time" Type="time" Precision="7" />
   </EntityType>
   <EntityType Name="Role_Types">
     <Key>

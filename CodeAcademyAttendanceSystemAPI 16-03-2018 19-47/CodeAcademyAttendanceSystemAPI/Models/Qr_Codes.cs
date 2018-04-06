@@ -19,6 +19,7 @@ namespace CodeAcademyAttendanceSystemAPI.Models
         public string qr_codes_value { get; set; }
         public Nullable<bool> qr_codes_status { get; set; }
         public Nullable<int> qr_codes_group_id { get; set; }
+        public Nullable<System.TimeSpan> qr_code_deadline_time { get; set; }
     
         public virtual Groups Groups { get; set; }
     }

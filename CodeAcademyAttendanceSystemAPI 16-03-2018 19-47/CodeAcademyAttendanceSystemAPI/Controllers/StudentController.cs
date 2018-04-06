@@ -261,6 +261,8 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
             // Aşağıda ReturnJsonObject methoduna parametr kimi ötürmək üçün HttpResponseMessage tipində bir cavab yaradılır...
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
 
+            TimeSpan time = TimeSpan.Parse(DateTime.Now.ToString("HH:mm:ss"));
+
             //Tokeni yoxlayır (AntiForgeryToken Class'da ətraflı yazılıb)
             if (!AntiForgeryToken.Verify(student_id, token))
             {
@@ -300,11 +302,12 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
                                        g.group_name,
                                        q.qr_codes_status,
                                        q.qr_codes_value,
-                                       q.qr_codes_date
+                                       q.qr_codes_date,
+                                       q.qr_code_deadline_time
                                    }).FirstOrDefault();
-
+                
                 //Əgər yuxarıdakı sorğu null gəlibsə, deməli bu gün tələbənin olduğu grup üçün Qr kod generate olunmayıb
-                if(student_info == null)
+                if (student_info == null)
                 {
                     return JsonObjectOperations.JsonGenerator(response, false, null, "\"Sizin grupda bu günə aid Qr kod tapılmadı\"", false);
                 }
@@ -313,6 +316,15 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
                 if(student_info.qr_codes_value != qr_code)
                 {
                     return JsonObjectOperations.JsonGenerator(response, false, null, "\"Qr kod səhvdir!\"", false);
+                }
+
+                //Əgər Qr kodun generate olunan anda databazaya yazılan deadline vaxtından sonra tələbə təsdiq edərsə...
+                if (student_info.qr_code_deadline_time < time)
+                {
+                    Qr_Codes ChangeQrCodeStatus = db.Qr_Codes.Where(q => q.qr_codes_date == today && q.qr_codes_value == student_info.qr_codes_value).FirstOrDefault();
+                    ChangeQrCodeStatus.qr_codes_status = false;
+
+                    return JsonObjectOperations.JsonGenerator(response, false, null, "\"Bu Qr kod artıq etibarlı deyil!\"", false);
                 }
 
                 //Əgər tələbənin oxuduğu Qr kod varsa, lakin artıq etibarlı deyilsə (dərsə gecikibsə)...

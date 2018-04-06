@@ -118,6 +118,7 @@
     <Property Name="qr_codes_status" Type="Boolean" />
     <Property Name="qr_codes_group_id" Type="Int32" />
     <NavigationProperty Name="Groups" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Qr_Codes_to_Groups" FromRole="Qr_Codes" ToRole="Groups" />
+    <Property Name="qr_code_deadline_time" Type="Time" Precision="7" />
   </EntityType>
   <EntityType Name="Role_Types">
     <Key>

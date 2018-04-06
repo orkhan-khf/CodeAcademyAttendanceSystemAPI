@@ -58,6 +58,7 @@
           <Property Name="qr_codes_value" Type="nvarchar" MaxLength="20" />
           <Property Name="qr_codes_status" Type="bit" />
           <Property Name="qr_codes_group_id" Type="int" />
+          <Property Name="qr_code_deadline_time" Type="time" Precision="7" />
         </EntityType>
         <EntityType Name="Role_Types">
           <Key>
@@ -411,6 +412,7 @@
           <Property Name="qr_codes_status" Type="Boolean" />
           <Property Name="qr_codes_group_id" Type="Int32" />
           <NavigationProperty Name="Groups" Relationship="CodeAcademyAttendanceSystem_dbModel.FK_Qr_Codes_to_Groups" FromRole="Qr_Codes" ToRole="Groups" />
+          <Property Name="qr_code_deadline_time" Type="Time" Precision="7" />
         </EntityType>
         <EntityType Name="Role_Types">
           <Key>
@@ -655,6 +657,7 @@
           <EntitySetMapping Name="Qr_Codes">
             <EntityTypeMapping TypeName="CodeAcademyAttendanceSystem_dbModel.Qr_Codes">
               <MappingFragment StoreEntitySet="Qr_Codes">
+                <ScalarProperty Name="qr_code_deadline_time" ColumnName="qr_code_deadline_time" />
                 <ScalarProperty Name="qr_codes_group_id" ColumnName="qr_codes_group_id" />
                 <ScalarProperty Name="qr_codes_status" ColumnName="qr_codes_status" />
                 <ScalarProperty Name="qr_codes_value" ColumnName="qr_codes_value" />
