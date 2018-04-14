@@ -100,6 +100,7 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
             return JsonObjectOperations.JsonGenerator(response, false, null, "\"CA216587: Xəta baş verdi!\"", false);
         }
 
+
         [HttpGet]
         public HttpResponseMessage SetNewPassword(int student_id, string student_new_password, string student_device_id, string token)
         {
@@ -150,6 +151,7 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
             }
         }
 
+
         [HttpGet]
         public HttpResponseMessage StudentProfile(int student_id, string student_device_id, string token)
         {
@@ -199,6 +201,7 @@ namespace CodeAcademyAttendanceSystemAPI.Controllers
 
             return JsonObjectOperations.JsonGenerator(response, true, StudentProfile, null, false);
         }
+
 
         [HttpGet]
         public HttpResponseMessage StudentAttendanceList(string token, string device_id, int student_id)
